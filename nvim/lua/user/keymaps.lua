@@ -11,6 +11,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- open init.lua
+local config_file = vim.fn.stdpath("config")
+keymap("n", "<Leader>rc", ":e " .. config_file .. "<CR>", opts)
 
 -- window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
