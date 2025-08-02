@@ -22,4 +22,5 @@ require("lazy").setup({
     require("plugins.project"),
     -- require("plugins.wilder"),
     -- require("plugins.winbar") -- nvim 0.11.0
+    require("plugins.lsp"),
 })
