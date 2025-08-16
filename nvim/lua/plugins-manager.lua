@@ -16,11 +16,13 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
 require("lazy").setup({
-    require("plugins.ui"),
-    require("plugins.git"),
-    require("plugins.editor"),
-    require("plugins.project"),
-    -- require("plugins.wilder"),
-    -- require("plugins.winbar") -- nvim 0.11.0
-    require("plugins.lsp"),
+    import = "plugins"
+    -- require("plugins.ui"),
+    -- require("plugins.git"),
+    -- require("plugins.editor"),
+    -- require("plugins.project"),
+    -- -- require("plugins.wilder"),
+    -- -- require("plugins.winbar"), -- nvim 0.11.0
+    -- require("plugins.lsp"),
+    -- require("plugins.file-explorer"),
 })

@@ -13,11 +13,11 @@ vim.opt.cindent = true
 -- vim.opt.foldmethod = 'indent'
 vim.opt.list = true
 vim.opt.listchars = {
-  tab = "→ ",       -- 制表符显示为 →（后面有个空格）
-  trail = ".",      -- 行尾空格显示为 ·
-  extends = "»",    -- 行超出右边界时显示 »
-  precedes = "«",   -- 行超出左边界时显示 «
-  nbsp = "␣",       -- 不可断空格显示为 ␣
+  tab = "→ ",
+  trail = ".",
+  extends = "»",
+  precedes = "«",
+  nbsp = "␣",
 }
 vim.opt.scrolloff = 4
 vim.opt.timeout = false

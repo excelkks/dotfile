@@ -40,7 +40,7 @@ return {
     version = "*",
     opts = {
       keymap = {
-        preset = "default",
+        preset = "enter",
       },
       appearance = {
         nerd_font_variant = "mono"

@@ -1,28 +1,9 @@
 -- Shorten function name
 local keymap = vim.keymap.set
 
-local function noremap(lhs, rhs)
-    keymap("", lhs, rhs, { noremap = true, silent = true })
-end
-
-local function nnoremap(lhs, rhs)
-    keymap("n", lhs, rhs, { noremap = true, silent = true })
-end
-
-local function inoremap(lhs, rhs)
-    keymap("i", lhs, rhs, { noremap = true, silent = true })
-end
-
-local function vnoremap(lhs, rhs)
-    keymap("v", lhs, rhs, { noremap = true, silent = true })
-end
-
-local function xnoremap(lhs, rhs)
-    keymap("x", lhs, rhs, { noremap = true, silent = true })
-end
-
-local function tnoremap(lhs, rhs)
-    keymap("t", lhs, rhs, { silent = true })
+local function noremap(mode, lhs, rhs)
+    local opts = { noremap = true }
+    keymap(mode, lhs, rhs, opts)
 end
 
 local function wsplit(dir)
@@ -52,63 +33,71 @@ local function wsplit(dir)
 end
 
 -- Remap space as leader key
-noremap("<Space>", "<Nop>")
+noremap("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- open init.lua
 local config_file = vim.fn.stdpath("config")
-nnoremap("<Leader>rc", ":e " .. config_file .. "<CR>")
+noremap("n", "<Leader>rc", ":e " .. config_file .. "<CR>")
 
 -- split window
-nnoremap("sh", function() wsplit("left") end)
-nnoremap("sj", function() wsplit("down") end)
-nnoremap("sk", function() wsplit("up") end)
-nnoremap("sl", function() wsplit("right") end)
+noremap("n", "sh", function() wsplit("left") end)
+noremap("n", "sj", function() wsplit("down") end)
+noremap("n", "sk", function() wsplit("up") end)
+noremap("n", "sl", function() wsplit("right") end)
 
 -- window navigation
-nnoremap("<leader>h", "<C-w>h")
-nnoremap("<leader>j", "<C-w>j")
-nnoremap("<leader>k", "<C-w>k")
-nnoremap("<leader>l", "<C-w>l")
-
-nnoremap("<leader>e", ":Lex 30<cr>")
-
--- Resize with arrows
-nnoremap("<C-Up>", ":resize +2<CR>")
-nnoremap("<C-Down>", ":resize -2<CR>")
-nnoremap("<C-Left>", ":vertical resize -2<CR>")
-nnoremap("<C-Right>", ":vertical resize +2<CR>")
+noremap("n", "<leader>h", "<C-w>h")
+noremap("n", "<leader>j", "<C-w>j")
+noremap("n", "<leader>k", "<C-w>k")
+noremap("n", "<leader>l", "<C-w>l")
 
 -- Navigate buffers
-nnoremap("<S-l>", ":bnext<CR>")
-nnoremap("<S-h>", ":bprevious<CR>")
+noremap("n", "<S-l>", ":bnext<CR>")
+noremap("n", "<S-h>", ":bprevious<CR>")
 
 -- Insert
 -- Press jk fast to enter
-inoremap("jk", "<ESC>")
+noremap("i", "jk", "<ESC>")
 
 -- Visual
 -- Stay in indent mode
-vnoremap("<", "<gv")
-vnoremap(">", ">gv")
+noremap("v", "<", "<gv")
+noremap("v", ">", ">gv")
 
 -- Move test up and down
-vnoremap("<A-j>", ":m .+1<CR>==")
-vnoremap("<A-k>", ":m .-2<CR>==")
-vnoremap("p", '"_dP', opts)
+noremap("v", "<A-j>", ":m .+1<CR>==")
+noremap("v", "<A-k>", ":m .-2<CR>==")
+noremap("v", "p", '"_dP')
 
 -- Visual Block --
 -- Move text up and down
-xnoremap("J", ":move '>+1<CR>gv-gv")
-xnoremap("K", ":move '<-2<CR>gv-gv")
-xnoremap("<A-j>", ":move '>+1<CR>gv-gv")
-xnoremap("<A-k>", ":move '<-2<CR>gv-gv")
+noremap("x", "J", ":move '>+1<CR>gv-gv")
+noremap("x", "K", ":move '<-2<CR>gv-gv")
+noremap("x", "<A-j>", ":move '>+1<CR>gv-gv")
+noremap("x", "<A-k>", ":move '<-2<CR>gv-gv")
 
 -- Terminal
 -- Better terminal navigation
-tnoremap("<C-h>", "<C-\\><C-N><C-w>h")
-tnoremap("<C-j>", "<C-\\><C-N><C-w>j")
-tnoremap("<C-k>", "<C-\\><C-N><C-w>k")
-tnoremap("<C-l>", "<C-\\><C-N><C-w>l")
-tnoremap("<C-o>", "<C-\\><C-N>")
+noremap("t", "<C-h>", "<C-\\><C-N><C-w>h")
+noremap("t", "<C-j>", "<C-\\><C-N><C-w>j")
+noremap("t", "<C-k>", "<C-\\><C-N><C-w>k")
+noremap("t", "<C-l>", "<C-\\><C-N><C-w>l")
+noremap("t", "<C-o>", "<C-\\><C-N>")
+
+-- Command
+noremap("c", "jk", "<C-c>")
+noremap("c", "<C-b>", "<Left>")
+noremap("c", "<C-f>", "<Right>")
+noremap("c", "<C-a>", "<Home>")
+noremap("c", "<C-e>", "<End>")
+noremap("c", "<C-p>", "<Up>")
+noremap("c", "<C-n>", "<Down>")
+noremap("c", "<C-k>", "<C-\\>e strpart(getcmdline(), 0, getcmdpos() - 1)<CR>")
+
+-- resize window
+noremap("n", "<Up>", function() vim.cmd("resize +2") end)
+noremap("n", "<Down>", function() vim.cmd("resize -2") end)
+noremap("n", "<Left>", function() vim.cmd("vertical resize -2") end)
+noremap("n", "<Right>", function() vim.cmd("vertical resize +2") end)

@@ -58,7 +58,7 @@ return {
   --     end, { silent = true })
   --   end
   -- },
-  
+
   -- Indention indicate
     {
     "shellRaining/hlchunk.nvim",
@@ -84,5 +84,5 @@ return {
         },
       })
     end
-  },
+  }
 }
